@@ -27,7 +27,9 @@ class _RegisterState extends State<Register> {
     print('-----' + (response.statusCode).toString());
     if (response.statusCode == 200) {
       print('User found');
-      _setUser(_userName);
+      //_setUser(_userName);
+
+      Navigator.pop(context); // idk its right way or not but its working :)
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => HomePage(_userName)),
@@ -48,10 +50,8 @@ class _RegisterState extends State<Register> {
       controller: _controller,
       cursorColor: Colors.black,
       decoration: InputDecoration(
-        filled: true,
-        fillColor: Color(0xFFf1f3f8),
         prefixIcon: Padding(
-          padding: EdgeInsets.only(left: 15.0, right: 10.0),
+          padding: EdgeInsets.only(left: 5.0, right: 10.0),
           child: Icon(
             Icons.person,
             color: Theme.of(context).primaryColor,
@@ -60,23 +60,6 @@ class _RegisterState extends State<Register> {
         //
         hintText: 'Codeforces Handle',
         //
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(width),
-          borderSide: BorderSide(
-            //color: Colors.transparent,
-            color: Theme.of(context).primaryColor,
-            width: 2.0,
-          ),
-        ),
-        //
-        // border which will be displayed on selecting this field.
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(width),
-          borderSide: BorderSide(
-            color: Theme.of(context).primaryColor,
-            width: 4.0,
-          ),
-        ),
       ),
     );
 
@@ -88,8 +71,8 @@ class _RegisterState extends State<Register> {
         'Submit',
         style: TextStyle(
           color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: height * 0.025,
+          //fontSize: height * 0.025,
+          fontSize: 18.0,
         ),
       ),
       shape: RoundedRectangleBorder(
@@ -97,7 +80,9 @@ class _RegisterState extends State<Register> {
       ),
       onPressed: () {
         setState(() {
+          FocusManager.instance.primaryFocus.unfocus();
           _userName = _controller.text;
+          _controller.clear();
           _userExist(_userName);
         });
       },
@@ -106,6 +91,12 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       key: _scaffoldkey,
       resizeToAvoidBottomPadding: false,
+      appBar: AppBar(
+        leading: Icon(
+          Icons.account_box,
+        ),
+        title: Text('Register'),
+      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(left: width * 0.15, right: width * 0.15),
@@ -113,14 +104,15 @@ class _RegisterState extends State<Register> {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: height * 0.25,
+                  height: height * 0.20,
                 ),
                 _inputField,
                 SizedBox(
-                  height: height * 0.04,
+                  height: 35.0,
                 ),
                 Container(
-                  height: height * 0.08,
+                  //height: height * 0.08,
+                  height: 50.0,
                   width: width,
                   //color: Theme.of(context).primaryColor,
                   child: _button,

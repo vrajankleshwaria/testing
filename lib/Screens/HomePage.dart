@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // willpopscope -- ask user to again press back to exit from app
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
