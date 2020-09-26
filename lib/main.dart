@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(0xFF2867B2), //linkedin logo color
         accentColor: Color(0xFF303F9F),
         scaffoldBackgroundColor: Colors.white,
+        splashColor: Colors.white70, // was spoiling buttons
       ),
       home: Authenticate(),
     );
