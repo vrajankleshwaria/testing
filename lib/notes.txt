@@ -1,3 +1,12 @@
 global scaffold key - final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
 snackbar using scaffold key - _scaffoldkey.currentState.showSnackBar(snackBar);
 to unfoucus - FocusManager.instance.primaryFocus.unfocus();
+
+
+
+
+
+
+
+
+change all class names :)

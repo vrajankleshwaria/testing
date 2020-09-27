@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
       title: 'Codeforces app',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Color(0xFF2867B2), //linkedin logo color
-        accentColor: Color(0xFF303F9F),
+        primaryColor: Color(0xFF2867B2), //linked in logo color
+        accentColor: Colors.green, // green is temporary
         scaffoldBackgroundColor: Colors.white,
         splashColor: Colors.white70, // was spoiling buttons
       ),

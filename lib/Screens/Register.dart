@@ -1,7 +1,9 @@
-import 'package:codeforces/Common/build_snackbar.dart';
+import 'package:codeforces/Common/buildSnackbar.dart';
+import 'package:codeforces/Helper/CircularIndicator.dart';
 import 'package:codeforces/Helper/urls.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'HomePage.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +16,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
 
-  String _userName = "";
+  String _userName;
   TextEditingController _controller = new TextEditingController();
 
   _setUser(String userName) async {
@@ -23,12 +25,13 @@ class _RegisterState extends State<Register> {
   }
 
   _userExist(String userName) async {
-    var response = await http.get(userInfo + userName);
+    String _url = userInfo + userName;
+    var response = await http.get(_url);
+
     print('-----' + (response.statusCode).toString());
     if (response.statusCode == 200) {
       print('User found');
       //_setUser(_userName);
-
       Navigator.pop(context); // idk its right way or not but its working :)
       Navigator.push(
         context,
@@ -36,8 +39,10 @@ class _RegisterState extends State<Register> {
       );
     } else {
       print('-----User not found');
-      _scaffoldkey.currentState
-          .showSnackBar(buildSnackBar("User " + _userName + " not found"));
+      setState(() {
+        _scaffoldkey.currentState
+            .showSnackBar(buildSnackBar("User " + _userName + " not found"));
+      });
     }
   }
 
@@ -61,6 +66,7 @@ class _RegisterState extends State<Register> {
         hintText: 'Codeforces Handle',
         //
       ),
+      inputFormatters: [BlacklistingTextInputFormatter(new RegExp('[ ]'))],
     );
 
     // button
@@ -73,16 +79,17 @@ class _RegisterState extends State<Register> {
           color: Colors.white,
           //fontSize: height * 0.025,
           fontSize: 18.0,
+          //letterSpacing: 0.4,
         ),
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(width),
       ),
       onPressed: () {
+        _userName = _controller.text;
+        FocusManager.instance.primaryFocus.unfocus();
+        _controller.clear();
         setState(() {
-          FocusManager.instance.primaryFocus.unfocus();
-          _userName = _controller.text;
-          _controller.clear();
           _userExist(_userName);
         });
       },
@@ -113,7 +120,7 @@ class _RegisterState extends State<Register> {
                 Container(
                   //height: height * 0.08,
                   height: 50.0,
-                  width: width,
+                  width: double.infinity,
                   //color: Theme.of(context).primaryColor,
                   child: _button,
                 ),
@@ -125,3 +132,8 @@ class _RegisterState extends State<Register> {
     );
   }
 }
+
+// we have to add circularIndicator after user presses submit
+// if user found then go to homepage else render the same page and snackbar
+
+// in username , emojis are being accepted as username ( from cf api even if there is no user )

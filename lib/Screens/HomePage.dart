@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Common/build_snackbar.dart';
+import '../Common/buildSnackbar.dart';
 
 class HomePage extends StatefulWidget {
   final String userName;

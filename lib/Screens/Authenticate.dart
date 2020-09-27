@@ -1,3 +1,4 @@
+import 'package:codeforces/Helper/CircularIndicator.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Register.dart';
@@ -6,8 +7,6 @@ import 'HomePage.dart';
 // authentication class
 // if 1st time then ask username (register)
 // else redirect to home page directly
-
-// NO NEED OF STATEFUL WIDGET I THINK
 
 class Authenticate extends StatefulWidget {
   @override
@@ -30,12 +29,16 @@ class _AuthenticateState extends State<Authenticate> {
     });
   }
 
+//  int count = 0;
   Widget build(BuildContext context) {
     if (_userName == null) {
-      //return Center(child: CircularProgressIndicator());
+      print("NULL USER");
+      //return CircularIndicator(); // no meaning - for 0.01 sec !!!
       return Scaffold();
     } else if (_userName == "") {
-      print("New User");
+//      count = count + 1;
+//      print(count);
+      print("new user ");
       return Register();
     } else {
       print("Old User");
@@ -43,3 +46,5 @@ class _AuthenticateState extends State<Authenticate> {
     }
   }
 }
+
+// in some cases it is showing "new user" twice because // mainly while restarting app
