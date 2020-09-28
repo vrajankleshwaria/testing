@@ -31,7 +31,7 @@ class _RegisterState extends State<Register> {
     print('-----' + (response.statusCode).toString());
     if (response.statusCode == 200) {
       print('User found');
-      //_setUser(_userName);
+      _setUser(_userName);
       Navigator.pop(context); // idk its right way or not but its working :)
       Navigator.push(
         context,
